@@ -1,18 +1,19 @@
 # Maintainer: echo -n 'bWF0dEBnZXRjcnlzdC5hbA==' | base64 --decode
+# Contributor: echo -n 'cmNhbmRhdUBnZXRjcnlzdC5hbA==' | base64 -d
 
-pkgname=jade_tui
+pkgname=jade-tui
 pkgver=1.0.0
-pkgrel=1
-pkgdesc="TUI for installing the system with jade"
+pkgrel=2
+pkgdesc="Tui frontend for the jade installer"
 license=('GPL3')
 arch=('any')
-url="https://github.com/crystal-linux/jade-tui"
-source=("git+${url}.git")
+url="https://github.com/crystal-linux/${pkgname}"
 depends=('jade' 'gum' 'openssl')
-md5sums=('f8bfed0ea3f1b5e85138b0c8b4770e48'
-         'cba37f460dcf5f678043df39d6378c35')
+source=("${pkgname}-${pkgver}::${url}/archive/v${pkgver}.tar.gz")
+sha256sums=('faf95c456e5d10c92372ccc007cbb25f4f65b43d7016e99388cffdc8d9abf982')
 
 package() {
-    install -D -m 755 ${srcdir}/jade-tui/jade-tui ${pkgdir}/usr/bin/.
-    install -D -m 700 ${srcdir}/jade-tui/locales ${pkgdir}/usr/share/jade-tui/.
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    install -Dm 755 "${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+    install -Dm 644 locales "${pkgdir}/usr/share/${pkgname}/locales"
 }
